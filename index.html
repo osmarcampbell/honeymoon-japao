@@ -3,227 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lua de Mel: Osmar & Mariana - JAPÃO 2026</title>
+    <title>Lua de Mel Japão 2026 - Osmar & Mariana</title>
     <style>
-        :root {
-            --primary: #1a2a6c;
-            --secondary: #b21f1f;
-            --accent: #d4af37;
-            --bg: #f4f4f4;
-            --card-bg: #ffffff;
-            --text: #2d3436;
-        }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
-        header { background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d); color: white; padding: 30px 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .nav-container { sticky; top: 0; background: white; z-index: 1000; display: flex; overflow-x: auto; padding: 10px; border-bottom: 2px solid var(--accent); gap: 10px; }
-        .nav-item { padding: 8px 18px; background: #eee; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; border: 1px solid #ddd; }
-        .nav-item.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .container { padding: 20px; max-width: 900px; margin: auto; }
-        .day-content { display: none; animation: slideIn 0.4s ease-out; }
-        .day-content.active { display: block; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .section-title { color: var(--secondary); border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin-top: 25px; display: flex; align-items: center; gap: 10px; }
-        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 15px; border-left: 6px solid var(--primary); }
-        .time { font-weight: bold; color: var(--secondary); background: #fff5f5; padding: 2px 8px; border-radius: 5px; margin-right: 10px; }
-        .hotel-box { background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
-        .tip-box { background: #fff9db; border-left: 5px solid #fcc419; padding: 10px; font-size: 0.9em; margin-top: 10px; }
-        .highlight { color: var(--primary); font-weight: bold; }
-        footer { text-align: center; padding: 40px 20px; color: #777; font-size: 0.8em; }
+        :root { --primary: #0a192f; --secondary: #c0392b; --accent: #d4af37; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; margin: 0; background: var(--bg); color: #333; }
+        header { background: var(--primary); color: white; padding: 25px 15px; text-align: center; border-bottom: 4px solid var(--accent); position: sticky; top: 0; z-index: 2000; }
+        .nav-container { position: sticky; top: 89px; background: white; z-index: 1000; display: flex; overflow-x: auto; padding: 12px; border-bottom: 2px solid #ddd; gap: 8px; -webkit-overflow-scrolling: touch; }
+        .nav-item { padding: 10px 18px; background: #f0f0f0; border-radius: 25px; white-space: nowrap; cursor: pointer; font-size: 13px; font-weight: bold; border: 1px solid #ccc; transition: 0.2s; }
+        .nav-item.active { background: var(--secondary); color: white; border-color: var(--secondary); }
+        .container { padding: 20px; max-width: 900px; margin: auto; padding-bottom: 100px; }
+        .day-content { display: none; }
+        .day-content.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); margin-bottom: 15px; border-left: 6px solid var(--accent); }
+        .hotel-tag { background: #e3f2fd; color: #0d47a1; padding: 12px; border-radius: 10px; font-weight: bold; margin-bottom: 20px; border: 1px solid #bbdefb; display: flex; align-items: center; gap: 10px; }
+        .time { color: var(--secondary); font-weight: 800; font-size: 0.95em; display: block; margin-bottom: 5px; }
+        .loc { font-weight: 700; color: var(--primary); font-size: 1.1em; display: block; margin-bottom: 8px; }
+        .info { font-size: 0.95em; line-height: 1.6; color: #444; }
+        .pro-tip { background: #fff9db; border-left: 4px solid #fcc419; padding: 12px; margin-top: 15px; font-size: 0.9em; border-radius: 0 8px 8px 0; }
+        footer { text-align: center; padding: 40px; background: #fff; border-top: 1px solid #ddd; font-size: 12px; color: #777; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0;">🇯🇵 Osmar & Mariana</h1>
-    <p style="margin:10px 0 0;">Lua de Mel Inesquecível | 2026</p>
+    <h1 style="margin:0; letter-spacing: 1px;">🇯🇵 LUA DE MEL 2026</h1>
+    <p style="margin:5px 0 0; font-size: 0.9em; opacity: 0.9;">Osmar & Mariana | Roteiro Completo</p>
 </header>
 
 <div class="nav-container" id="navbar"></div>
-
-<div class="container" id="main-content"></div>
-
-<footer>
-    Viagem Lua de Mel - Concierge Exclusivo<br>
-    "Onde a tradição encontra o luxo"
-</footer>
+<div class="container" id="content"></div>
 
 <script>
-    const roteiroCompleto = [
-        {
-            id: 1, data: "27/04", diaSemana: "Segunda", titulo: "Chegada em Tóquio",
-            hotel: "The Prince Park Tower Tokyo (Daimon Station)",
-            itens: [
-                { hora: "19:30", local: "Aeroporto Narita (NRT)", acao: "Imigração e Alfândega. Use o QR Code do Visit Japan Web." },
-                { hora: "21:00", local: "Keisei Narita Sky Access", acao: "Traslado direto para Estação Daimon (A09/E20). Sem troca de trem se for o Access Express." },
-                { hora: "22:15", local: "Check-in Hotel", acao: "Check-in no The Prince Park Tower. Vista da Tokyo Tower garantida!" },
-                { hora: "Noite", local: "Dica", acao: "Saque ienes nas ATMs do 7-Eleven no aeroporto." }
-            ]
-        },
-        {
-            id: 2, data: "28/04", diaSemana: "Terça", titulo: "Asakusa & Tradição",
-            hotel: "The Prince Park Tower Tokyo",
-            itens: [
-                { hora: "10:00", local: "Senso-ji & Nakamise", acao: "Explorar o templo mais antigo e as lojinhas tradicionais." },
-                { hora: "14:00", local: "Mizuki Kintsugi", acao: "Workshop Privado de Kintsugi (Restauração com ouro). <span class='highlight'>Reserva Confirmada.</span>" },
-                { hora: "19:00", local: "Kitan Hibiki", acao: "Jantar: Hambúrguer de Wagyu em Asakusa. Sabor intenso e exclusivo." },
-                { hora: "21:00", local: "Tokyo Tower", acao: "Passeio noturno nos arredores do hotel." }
-            ]
-        },
-        {
-            id: 3, data: "29/04", diaSemana: "Quarta", titulo: "Akihabara & Yakiniku",
-            hotel: "The Prince Park Tower Tokyo",
-            itens: [
-                { hora: "11:00", local: "Akihabara", acao: "Mergulho na cultura Geek e Eletrônicos (Yodobashi Camera)." },
-                { hora: "15:00", local: "Pokémon Center DX", acao: "Visita ao Pokémon Center e Pokémon Café (Sujeito a reserva 30 dias antes)." },
-                { hora: "20:00", local: "Yoroniku (Ebisu)", acao: "Experiência de Yakiniku Premium. O ápice da carne japonesa." }
-            ]
-        },
-        {
-            id: 4, data: "30/04", diaSemana: "Quinta", titulo: "Peixe & Arte Digital",
-            hotel: "The Prince Park Tower Tokyo",
-            itens: [
-                { hora: "09:00", local: "Tsukiji Outer Market", acao: "Café da manhã no 'Tsukiji Iroha' (Tiramisu de Chá Verde)." },
-                { hora: "14:00", local: "teamLab Planets", acao: "Imersão sensorial na água (Toyosu). Levar roupas fáceis de dobrar." },
-                { hora: "19:30", local: "Okdongsik", acao: "Jantar: Gukbap refinado. Reserva via TableCheck recomendada." }
-            ]
-        },
-        {
-            id: 5, data: "01/05", diaSemana: "Sexta", titulo: "Shibuya & Vista Panorâmica",
-            hotel: "The Prince Park Tower Tokyo",
-            itens: [
-                { hora: "14:00", local: "Shibuya Crossing", acao: "Atravessar o cruzamento mais famoso e ver a estátua do Hachiko." },
-                { hora: "17:30", local: "Shibuya Sky", acao: "Pôr do sol no topo de Tóquio. <span class='highlight'>Horário Nobre.</span>" },
-                { hora: "20:00", local: "Shibuya Sky Bar", acao: "Drinks com vista para as luzes da cidade." }
-            ]
-        },
-        {
-            id: 6, data: "02/05", diaSemana: "Sábado", titulo: "Nagoya & Velocidade",
-            hotel: "Nagoya Marriott Associa",
-            itens: [
-                { hora: "10:00", local: "Shinkansen", acao: "Trem Bala Tóquio -> Nagoya (1h40). Reserve assentos do lado DIREITO (Vista do Monte Fuji)." },
-                { hora: "14:00", local: "Toyota Commemorative Museum", acao: "História da indústria e tecnologia japonesa." },
-                { hora: "19:00", local: "Nagoya Station", acao: "Jantar nos arredores do Marriott (gastronomia local: Hitsumabushi)." }
-            ]
-        },
-        {
-            id: 7, data: "03/05", diaSemana: "Domingo", titulo: "Ghibli Park",
-            hotel: "Nagoya Marriott Associa",
-            itens: [
-                { hora: "10:00", local: "Ghibli Park", acao: "Dia inteiro mergulhado nas animações de Hayao Miyazaki." },
-                { hora: "Noite", local: "Nagoya", acao: "Explorar a área central e descansar para Quioto." }
-            ]
-        },
-        {
-            id: 8, data: "04/05", diaSemana: "Segunda", titulo: "Quioto: O Coração Cultural",
-            hotel: "Aman Kyoto (Luxo Extremo)",
-            itens: [
-                { hora: "11:00", local: "Shinkansen para Quioto", acao: "Viagem curta de 35 min." },
-                { hora: "13:00", local: "Mercado Nishiki", acao: "Almoço exploratório (A 'Cozinha de Quioto')." },
-                { hora: "16:00", local: "Check-in Aman Kyoto", acao: "Entrada na floresta privativa do hotel. Experiência de paz absoluta." }
-            ]
-        },
-        {
-            id: 9, data: "08/05", diaSemana: "Sexta", titulo: "Shuzenji: Retiro Termal",
-            hotel: "Ryokan Tradicional em Shuzenji",
-            itens: [
-                { hora: "10:00", local: "Logística", acao: "Trem de Quioto para Shuzenji (Izu). Uso do Takkyubin para malas." },
-                { hora: "15:00", local: "Onsen Privativo", acao: "Check-in e banhos termais para relaxar totalmente." },
-                { hora: "19:00", local: "Jantar Kaiseki", acao: "Banquete japonês tradicional servido no ryokan." }
-            ]
-        },
-        {
-            id: 11, data: "11/05", diaSemana: "Segunda", titulo: "Universal Studios & Nintendo",
-            hotel: "Osaka Marriott Miyako",
-            itens: [
-                { hora: "08:00", local: "USJ Osaka", acao: "Entrada antecipada para o Super Nintendo World." },
-                { hora: "Dia Todo", local: "Mario Kart & Harry Potter", acao: "Uso do Express Pass para otimizar o tempo." },
-                { hora: "20:00", local: "Dotonbori", acao: "Jantar de rua em Osaka (Takoyaki e Okonomiyaki)." }
-            ]
-        },
-        {
-            id: 12, data: "12/05", diaSemana: "Terça", titulo: "Nintendo Museum",
-            hotel: "Osaka Marriott Miyako",
-            itens: [
-                { hora: "10:00", local: "Uji (Quioto)", acao: "Visita ao novíssimo Nintendo Museum. <span class='highlight'>História pura dos games.</span>" },
-                { hora: "15:00", local: "Uji Tea", acao: "Provar o melhor Matcha do Japão antes de voltar para Osaka." }
-            ]
-        },
-        {
-            id: 19, data: "19/05", diaSemana: "Terça", titulo: "O Retorno ao Luxo (Tóquio)",
-            hotel: "Janu Tokyo (Azabudai Hills)",
-            itens: [
-                { hora: "11:00", local: "Shinkansen", acao: "Osaka -> Tokyo. Viagem final de trem-bala." },
-                { hora: "15:00", local: "Check-in Janu Tokyo", acao: "Abertura do hotel mais aguardado de 2024/25. Vista para a Tokyo Tower." },
-                { hora: "19:00", local: "Azabudai Hills", acao: "Explorar o novo complexo e jantar sofisticado." }
-            ]
-        },
-        {
-            id: 21, data: "21/05", diaSemana: "Quinta", titulo: "Despedida em Grande Estilo",
-            hotel: "Janu Tokyo",
-            itens: [
-                { hora: "11:00", local: "Omotesando", acao: "Compras de luxo e eletrônicos Tax-Free (Levar passaporte!)." },
-                { hora: "19:30", local: "Balcony by 6th", acao: "Jantar de celebração: <span class='highlight'>Lendário Tiramisu</span> e Cheesecake Basca." },
-                { hora: "22:00", local: "Janu Bar", acao: "Drink de encerramento com vista panorâmica." }
-            ]
-        },
-        {
-            id: 22, data: "22/05", diaSemana: "Sexta", titulo: "Grand Finale",
-            hotel: "Check-out",
-            itens: [
-                { hora: "09:30", local: "teamLab Borderless", acao: "Visita ao novo museu em Azabudai Hills." },
-                { hora: "12:00", local: "Check-out", acao: "Último almoço e partida para Narita (NRT)." }
-            ]
-        }
+    const roteiro = [
+        { d: "26/04", t: "A Partida", h: "Voo Internacional", at: [
+            { h: "---", l: "Embarque", d: "Início da jornada! Conferir passaportes, cartões Wise/Nomad e QR Codes do Visit Japan Web." }
+        ]},
+        { d: "27/04", t: "Chegada em Tóquio", h: "The Prince Park Tower Tokyo", at: [
+            { h: "19:30", l: "Narita (NRT)", d: "Imigração e Alfândega. Saque de ienes no 7-Eleven do aeroporto." },
+            { h: "21:00", l: "Keisei Narita Sky Access", d: "Linha direta para Estação Daimon (A09). Custo: 1420 JPY. Não precisa trocar de trem no Access Express." },
+            { h: "22:15", l: "Estação Daimon", d: "Caminhada curta de 10 min até o hotel." },
+            { h: "Check-in", l: "The Prince Park Tower", d: "Descanso com vista para a Tokyo Tower iluminada." }
+        ]},
+        { d: "28/04", t: "Asakusa & Kintsugi", h: "The Prince Park Tower Tokyo", at: [
+            { h: "10:00", l: "Senso-ji & Nakamise-dori", d: "Exploração do templo mais antigo de Tóquio e compras tradicionais." },
+            { h: "14:00", l: "Mizuki Kintsugi Workshop", d: "Workshop privado da arte de restauração com ouro. Atividade confirmada." },
+            { h: "19:00", l: "Jantar: Kitan Hibiki", d: "Experiência de hambúrguer de Wagyu em Asakusa." }
+        ]},
+        { d: "29/04", t: "Akihabara & Yakiniku", h: "The Prince Park Tower Tokyo", at: [
+            { h: "11:00", l: "Akihabara", d: "Mergulho na cultura geek, eletrônicos e Yodobashi Camera." },
+            { h: "15:00", l: "Pokémon Center DX", d: "Visita ao Pokémon Café (conforme reserva)." },
+            { h: "20:00", l: "Jantar: Yoroniku (Ebisu)", d: "Experiência Premium de Yakiniku (Carnes nobres grelhadas)." }
+        ]},
+        { d: "30/04", t: "Tsukiji & teamLab", h: "The Prince Park Tower Tokyo", at: [
+            { h: "09:00", l: "Tsukiji Outer Market", d: "Café da manhã exploratório. Parada obrigatória no 'Tsukiji Iroha' para o Tiramisu de Chá Verde." },
+            { h: "14:00", l: "teamLab Planets (Toyosu)", d: "Experiência imersiva na água. Dica: Usar calças fáceis de dobrar." },
+            { h: "19:30", l: "Jantar: Okdongsik", d: "Famoso Gukbap (caldo de porco refinado). Reserva via TableCheck." }
+        ]},
+        { d: "01/05", t: "Shibuya Sky Experience", h: "The Prince Park Tower Tokyo", at: [
+            { h: "13:00", l: "Meiji Jingu & Harajuku", d: "Caminhada pelo santuário e pela Takeshita Street." },
+            { h: "17:30", l: "Shibuya Sky", d: "Pôr do sol panorâmico no topo de Tóquio. Horário nobre reservado." },
+            { h: "20:00", l: "Shibuya Sky Bar / Jantar", d: "Drinks no topo e exploração gastronômica em Shibuya." }
+        ]},
+        { d: "02/05", t: "Nagoya & Monte Fuji", h: "Nagoya Marriott Associa", at: [
+            { h: "10:00", l: "Shinkansen para Nagoya", d: "Trem Bala (1h40). Importante: Reservar assentos do lado DIREITO (D e E) para ver o Monte Fuji." },
+            { h: "14:00", l: "Toyota Museum", d: "Museu Comemorativo de Indústria e Tecnologia." },
+            { h: "19:00", l: "Nagoya Station", d: "Exploração do complexo da estação e jantar local." }
+        ]},
+        { d: "03/05", t: "Mundo Ghibli", h: "Nagoya Marriott Associa", at: [
+            { h: "10:00", l: "Ghibli Park", d: "Dia inteiro dedicado às animações do Studio Ghibli." },
+            { h: "19:00", l: "Jantar: Hitsumabushi", d: "Degustação da enguia grelhada, prato icônico de Nagoya." }
+        ]},
+        { d: "04/05", t: "Chegada em Kyoto (Aman)", h: "Aman Kyoto", at: [
+            { h: "11:00", l: "Trem para Kyoto", d: "Viagem curta de 35 min." },
+            { h: "13:00", l: "Nishiki Market", d: "Almoço e compras na 'Cozinha de Kyoto'." },
+            { h: "16:00", l: "Check-in Aman Kyoto", d: "Entrada na floresta privativa do hotel. Experiência de paz e luxo." }
+        ]},
+        { d: "05/05", t: "Arashiyama & Bambu", h: "Aman Kyoto", at: [
+            { h: "08:30", l: "Bamboo Grove", d: "Floresta de bambu cedo para evitar multidões." },
+            { h: "11:00", l: "Tenryu-ji & Kinkaku-ji", d: "Visita ao Templo Zen e ao Pavilhão de Ouro." },
+            { h: "Tarde", l: "Aman Onsen", d: "Aproveitar o banho termal privativo do hotel." }
+        ]},
+        { d: "06/05", t: "Portais Vermelhos & Gion", h: "Aman Kyoto", at: [
+            { h: "08:00", l: "Fushimi Inari", d: "Caminhada pelos milhares de Torii vermelhos." },
+            { h: "16:00", l: "Gion District", d: "Caminhada ao entardecer pelo bairro das Geishas e Yasaka Shrine." }
+        ]},
+        { d: "07/05", t: "Nara Day Trip", h: "Aman Kyoto", at: [
+            { h: "10:00", l: "Nara Park", d: "Interação com os cervos sagrados e visita ao Grande Buda (Todai-ji)." }
+        ]},
+        { d: "08/05", t: "Shuzenji: Retiro Onsen", h: "Ryokan em Shuzenji", at: [
+            { h: "09:00", l: "Operação Takkyubin", d: "Despachar malas grandes para Osaka. Viajar apenas com mochila para Izu." },
+            { h: "15:00", l: "Check-in Ryokan", d: "Experiência tradicional com Onsen e Jantar Kaiseki no quarto." }
+        ]},
+        { d: "09/05", t: "Península de Izu", h: "Ryokan em Shuzenji", at: [
+            { h: "11:00", l: "Shuzenji Walk", d: "Passeio pela floresta de bambu de Izu, Templos e Pontes Vermelhas." }
+        ]},
+        { d: "10/05", t: "Osaka: No Topo", h: "Osaka Marriott Miyako", at: [
+            { h: "14:00", l: "Abeno Harukas", d: "Check-in no hotel dentro do prédio mais alto do Japão." },
+            { h: "18:00", l: "Harukas 300", d: "Observatório panorâmico com vista 360 graus de Osaka." }
+        ]},
+        { d: "11/05", t: "Universal & Nintendo", h: "Osaka Marriott Miyako", at: [
+            { h: "08:00", l: "USJ Osaka", d: "Acesso antecipado ao Super Nintendo World e Mario Kart." },
+            { h: "20:00", l: "Dotonbori", d: "Jantar de rua: Takoyaki e foto no letreiro do Glico Man." }
+        ]},
+        { d: "12/05", t: "Nintendo Museum (Uji)", h: "Osaka Marriott Miyako", at: [
+            { h: "10:00", l: "Uji", d: "Visita ao novo Museu da Nintendo (história da marca)." },
+            { h: "15:00", l: "Uji Tea Experience", d: "Degustação de Matcha na região mais famosa de chá verde." }
+        ]},
+        { d: "13/05", t: "Osaka Geek & Food", h: "Osaka Marriott Miyako", at: [
+            { h: "11:00", l: "Kuromon Ichiba", d: "Mercado de peixes e frutos do mar frescos." },
+            { h: "14:00", l: "Den Den Town", d: "A 'Akihabara de Osaka' para mais games e figures." },
+            { h: "17:00", l: "Namba Yasaka", d: "Templo em formato de cabeça de leão." }
+        ]},
+        { d: "14/05", t: "Hiroshima & Miyajima", h: "Osaka Marriott Miyako", at: [
+            { h: "08:00", l: "Shinkansen", d: "Bate-volta para Hiroshima (Memorial da Paz) e Ilha de Miyajima (Torii flutuante)." }
+        ]},
+        { d: "15/05", t: "Castelo de Himeji", h: "Osaka Marriott Miyako", at: [
+            { h: "10:00", l: "Himeji", d: "Visita ao Castelo da Garça Branca (patrimônio UNESCO) e Jardim Koko-en." }
+        ]},
+        { d: "16/05", t: "Kobe Wagyu Day", h: "Osaka Marriott Miyako", at: [
+            { h: "12:00", l: "Kobe Harbourland", d: "Passeio pela orla e compras." },
+            { h: "19:00", l: "Jantar: Kobe Beef", d: "Reserva para degustar a carne mais famosa do mundo na sua origem." }
+        ]},
+        { d: "17/05", t: "Osaka Shopping & Spa", h: "Osaka Marriott Miyako", at: [
+            { h: "10:00", l: "Umeda District", d: "Explorar o Grand Front Osaka e as lojas de departamento (Hankyu/Hanshin)." },
+            { h: "13:00", l: "HEP FIVE", d: "Roda gigante vermelha no topo do shopping e compras voltadas ao público jovem." },
+            { h: "16:00", l: "Solaniwa Onsen", d: "Mega complexo de águas termais com jardins japoneses no topo. Jantar estilo Bento no local." }
+        ]},
+        { d: "18/05", t: "Relax em Osaka", h: "Osaka Marriott Miyako", at: [
+            { h: "11:00", l: "Sumiyoshi Taisha", d: "Um dos santuários mais antigos e bonitos de Osaka." },
+            { h: "Tarde", l: "Livre para Compras", d: "Última chance para Shinsaibashi e compras de conveniência." }
+        ]},
+        { d: "19/05", t: "Retorno a Tóquio (Janu)", h: "Janu Tokyo (Azabudai Hills)", at: [
+            { h: "11:00", l: "Shinkansen", d: "Osaka -> Tokyo. Viagem final de trem-bala." },
+            { h: "15:00", l: "Check-in Janu Tokyo", d: "Abertura do hotel de luxo moderno em Azabudai Hills." },
+            { h: "19:00", l: "Azabudai Hills", d: "Exploração do complexo arquitetônico e jantar." }
+        ]},
+        { d: "20/05", t: "Ginza Luxury", h: "Janu Tokyo", at: [
+            { h: "11:00", l: "Ginza District", d: "Compras de luxo. Visita ao Ginza Six e Itoya (papelaria)." },
+            { h: "15:00", l: "Ginza Tiramisu Hunt", d: "Buscar o famoso tiramisu das confeitarias de Ginza." }
+        ]},
+        { d: "21/05", t: "Despedida & Balcony", h: "Janu Tokyo", at: [
+            { h: "11:00", l: "Omotesando", d: "Últimas compras de eletrônicos com Tax-Free (Levar passaporte!)." },
+            { h: "19:30", l: "Balcony by 6th", d: "Jantar de Celebração: Focado no lendário Tiramisu e Cheesecake Basca." },
+            { h: "21:30", l: "Janu Bar", d: "Drink autoral com vista panorâmica para fechar a viagem." }
+        ]},
+        { d: "22/05", t: "Grand Finale", h: "Check-out Janu", at: [
+            { h: "09:30", l: "teamLab Borderless", d: "Visita ao museu digital dentro do complexo Azabudai Hills." },
+            { h: "12:00", l: "Checkout & Almoço", d: "Checkout ao meio-dia. Almoço de despedida no Janu Grill." },
+            { h: "15:00", l: "Traslado NRT", d: "Partida para o Aeroporto de Narita. Fim da jornada épica." }
+        ]}
     ];
 
-    function renderNav() {
-        const nav = document.getElementById('navbar');
-        roteiroCompleto.forEach((dia, index) => {
-            const div = document.createElement('div');
-            div.className = `nav-item ${index === 0 ? 'active' : ''}`;
-            div.innerText = `${dia.data}`;
-            div.onclick = () => showDay(dia.id, div);
-            nav.appendChild(div);
-        });
-    }
+    const nav = document.getElementById('navbar');
+    const content = document.getElementById('content');
 
-    function renderContent() {
-        const main = document.getElementById('main-content');
-        roteiroCompleto.forEach((dia, index) => {
-            const section = document.createElement('div');
-            section.id = `day-${dia.id}`;
-            section.className = `day-content ${index === 0 ? 'active' : ''}`;
-            
-            let itensHtml = dia.itens.map(item => `
-                <div class="card">
-                    <div><span class="time">${item.hora}</span> <span class="highlight">${item.local}</span></div>
-                    <div style="margin-top:8px;">${item.acao}</div>
-                </div>
-            `).join('');
+    roteiro.forEach((dia, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `nav-item ${idx === 0 ? 'active' : ''}`;
+        btn.innerHTML = `${dia.d}<br><span style="font-size:10px">${dia.t.substring(0,10)}...</span>`;
+        btn.onclick = () => showDay(idx, btn);
+        nav.appendChild(btn);
 
-            section.innerHTML = `
-                <div class="hotel-box">🏨 <strong>Acomodação:</strong> ${dia.hotel}</div>
-                <h2 class="section-title">📅 ${dia.data} (${dia.diaSemana}) - ${dia.titulo}</h2>
-                ${itensHtml}
-                <div class="tip-box">✨ <strong>Dica do Concierge:</strong> Use o Google Maps para trajetos em tempo real e não esqueça de carregar seu Suica/Pasmo no celular!</div>
-            `;
-            main.appendChild(section);
-        });
-    }
+        const section = document.createElement('div');
+        section.className = `day-content ${idx === 0 ? 'active' : ''}`;
+        section.id = `day-${idx}`;
 
-    function showDay(id, element) {
-        document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+        let atvs = dia.at.map(a => `
+            <div class="card">
+                <span class="time">🕒 ${a.h}</span>
+                <span class="loc">📍 ${a.l}</span>
+                <div class="info">${a.d}</div>
+            </div>
+        `).join('');
+
+        section.innerHTML = `
+            <h2 style="color:var(--secondary); border-bottom: 2px solid var(--accent); padding-bottom:10px;">${dia.d} - ${dia.t}</h2>
+            <div class="hotel-tag">🏨 Hotel: ${dia.h}</div>
+            ${atvs}
+            <div class="pro-tip">💡 <strong>Dica do Concierge:</strong> Use o Google Maps para trajetos de trem e o Google Lens para traduzir cardápios instantaneamente!</div>
+        `;
+        content.appendChild(section);
+    });
+
+    function showDay(idx, el) {
+        document.querySelectorAll('.day-content').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        
-        document.getElementById(`day-${id}`).classList.add('active');
-        element.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById(`day-${idx}`).classList.add('active');
+        el.classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
-
-    renderNav();
-    renderContent();
 </script>
-
 </body>
 </html>

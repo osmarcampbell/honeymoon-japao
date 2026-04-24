@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lua de Mel: Osmar & Mariana - JAPÃO 2026</title>
+    <style>
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #d4af37;
+            --bg: #f4f4f4;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+        header { background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d); color: white; padding: 30px 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .nav-container { sticky; top: 0; background: white; z-index: 1000; display: flex; overflow-x: auto; padding: 10px; border-bottom: 2px solid var(--accent); gap: 10px; }
+        .nav-item { padding: 8px 18px; background: #eee; border-radius: 25px; white-space: nowrap; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; border: 1px solid #ddd; }
+        .nav-item.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .container { padding: 20px; max-width: 900px; margin: auto; }
+        .day-content { display: none; animation: slideIn 0.4s ease-out; }
+        .day-content.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .section-title { color: var(--secondary); border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin-top: 25px; display: flex; align-items: center; gap: 10px; }
+        .card { background: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 15px; border-left: 6px solid var(--primary); }
+        .time { font-weight: bold; color: var(--secondary); background: #fff5f5; padding: 2px 8px; border-radius: 5px; margin-right: 10px; }
+        .hotel-box { background: #e3f2fd; border: 1px solid #90caf9; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        .tip-box { background: #fff9db; border-left: 5px solid #fcc419; padding: 10px; font-size: 0.9em; margin-top: 10px; }
+        .highlight { color: var(--primary); font-weight: bold; }
+        footer { text-align: center; padding: 40px 20px; color: #777; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin:0;">🇯🇵 Osmar & Mariana</h1>
+    <p style="margin:10px 0 0;">Lua de Mel Inesquecível | 2026</p>
+</header>
+
+<div class="nav-container" id="navbar"></div>
+
+<div class="container" id="main-content"></div>
+
+<footer>
+    Viagem Lua de Mel - Concierge Exclusivo<br>
+    "Onde a tradição encontra o luxo"
+</footer>
+
+<script>
+    const roteiroCompleto = [
+        {
+            id: 1, data: "27/04", diaSemana: "Segunda", titulo: "Chegada em Tóquio",
+            hotel: "The Prince Park Tower Tokyo (Daimon Station)",
+            itens: [
+                { hora: "19:30", local: "Aeroporto Narita (NRT)", acao: "Imigração e Alfândega. Use o QR Code do Visit Japan Web." },
+                { hora: "21:00", local: "Keisei Narita Sky Access", acao: "Traslado direto para Estação Daimon (A09/E20). Sem troca de trem se for o Access Express." },
+                { hora: "22:15", local: "Check-in Hotel", acao: "Check-in no The Prince Park Tower. Vista da Tokyo Tower garantida!" },
+                { hora: "Noite", local: "Dica", acao: "Saque ienes nas ATMs do 7-Eleven no aeroporto." }
+            ]
+        },
+        {
+            id: 2, data: "28/04", diaSemana: "Terça", titulo: "Asakusa & Tradição",
+            hotel: "The Prince Park Tower Tokyo",
+            itens: [
+                { hora: "10:00", local: "Senso-ji & Nakamise", acao: "Explorar o templo mais antigo e as lojinhas tradicionais." },
+                { hora: "14:00", local: "Mizuki Kintsugi", acao: "Workshop Privado de Kintsugi (Restauração com ouro). <span class='highlight'>Reserva Confirmada.</span>" },
+                { hora: "19:00", local: "Kitan Hibiki", acao: "Jantar: Hambúrguer de Wagyu em Asakusa. Sabor intenso e exclusivo." },
+                { hora: "21:00", local: "Tokyo Tower", acao: "Passeio noturno nos arredores do hotel." }
+            ]
+        },
+        {
+            id: 3, data: "29/04", diaSemana: "Quarta", titulo: "Akihabara & Yakiniku",
+            hotel: "The Prince Park Tower Tokyo",
+            itens: [
+                { hora: "11:00", local: "Akihabara", acao: "Mergulho na cultura Geek e Eletrônicos (Yodobashi Camera)." },
+                { hora: "15:00", local: "Pokémon Center DX", acao: "Visita ao Pokémon Center e Pokémon Café (Sujeito a reserva 30 dias antes)." },
+                { hora: "20:00", local: "Yoroniku (Ebisu)", acao: "Experiência de Yakiniku Premium. O ápice da carne japonesa." }
+            ]
+        },
+        {
+            id: 4, data: "30/04", diaSemana: "Quinta", titulo: "Peixe & Arte Digital",
+            hotel: "The Prince Park Tower Tokyo",
+            itens: [
+                { hora: "09:00", local: "Tsukiji Outer Market", acao: "Café da manhã no 'Tsukiji Iroha' (Tiramisu de Chá Verde)." },
+                { hora: "14:00", local: "teamLab Planets", acao: "Imersão sensorial na água (Toyosu). Levar roupas fáceis de dobrar." },
+                { hora: "19:30", local: "Okdongsik", acao: "Jantar: Gukbap refinado. Reserva via TableCheck recomendada." }
+            ]
+        },
+        {
+            id: 5, data: "01/05", diaSemana: "Sexta", titulo: "Shibuya & Vista Panorâmica",
+            hotel: "The Prince Park Tower Tokyo",
+            itens: [
+                { hora: "14:00", local: "Shibuya Crossing", acao: "Atravessar o cruzamento mais famoso e ver a estátua do Hachiko." },
+                { hora: "17:30", local: "Shibuya Sky", acao: "Pôr do sol no topo de Tóquio. <span class='highlight'>Horário Nobre.</span>" },
+                { hora: "20:00", local: "Shibuya Sky Bar", acao: "Drinks com vista para as luzes da cidade." }
+            ]
+        },
+        {
+            id: 6, data: "02/05", diaSemana: "Sábado", titulo: "Nagoya & Velocidade",
+            hotel: "Nagoya Marriott Associa",
+            itens: [
+                { hora: "10:00", local: "Shinkansen", acao: "Trem Bala Tóquio -> Nagoya (1h40). Reserve assentos do lado DIREITO (Vista do Monte Fuji)." },
+                { hora: "14:00", local: "Toyota Commemorative Museum", acao: "História da indústria e tecnologia japonesa." },
+                { hora: "19:00", local: "Nagoya Station", acao: "Jantar nos arredores do Marriott (gastronomia local: Hitsumabushi)." }
+            ]
+        },
+        {
+            id: 7, data: "03/05", diaSemana: "Domingo", titulo: "Ghibli Park",
+            hotel: "Nagoya Marriott Associa",
+            itens: [
+                { hora: "10:00", local: "Ghibli Park", acao: "Dia inteiro mergulhado nas animações de Hayao Miyazaki." },
+                { hora: "Noite", local: "Nagoya", acao: "Explorar a área central e descansar para Quioto." }
+            ]
+        },
+        {
+            id: 8, data: "04/05", diaSemana: "Segunda", titulo: "Quioto: O Coração Cultural",
+            hotel: "Aman Kyoto (Luxo Extremo)",
+            itens: [
+                { hora: "11:00", local: "Shinkansen para Quioto", acao: "Viagem curta de 35 min." },
+                { hora: "13:00", local: "Mercado Nishiki", acao: "Almoço exploratório (A 'Cozinha de Quioto')." },
+                { hora: "16:00", local: "Check-in Aman Kyoto", acao: "Entrada na floresta privativa do hotel. Experiência de paz absoluta." }
+            ]
+        },
+        {
+            id: 9, data: "08/05", diaSemana: "Sexta", titulo: "Shuzenji: Retiro Termal",
+            hotel: "Ryokan Tradicional em Shuzenji",
+            itens: [
+                { hora: "10:00", local: "Logística", acao: "Trem de Quioto para Shuzenji (Izu). Uso do Takkyubin para malas." },
+                { hora: "15:00", local: "Onsen Privativo", acao: "Check-in e banhos termais para relaxar totalmente." },
+                { hora: "19:00", local: "Jantar Kaiseki", acao: "Banquete japonês tradicional servido no ryokan." }
+            ]
+        },
+        {
+            id: 11, data: "11/05", diaSemana: "Segunda", titulo: "Universal Studios & Nintendo",
+            hotel: "Osaka Marriott Miyako",
+            itens: [
+                { hora: "08:00", local: "USJ Osaka", acao: "Entrada antecipada para o Super Nintendo World." },
+                { hora: "Dia Todo", local: "Mario Kart & Harry Potter", acao: "Uso do Express Pass para otimizar o tempo." },
+                { hora: "20:00", local: "Dotonbori", acao: "Jantar de rua em Osaka (Takoyaki e Okonomiyaki)." }
+            ]
+        },
+        {
+            id: 12, data: "12/05", diaSemana: "Terça", titulo: "Nintendo Museum",
+            hotel: "Osaka Marriott Miyako",
+            itens: [
+                { hora: "10:00", local: "Uji (Quioto)", acao: "Visita ao novíssimo Nintendo Museum. <span class='highlight'>História pura dos games.</span>" },
+                { hora: "15:00", local: "Uji Tea", acao: "Provar o melhor Matcha do Japão antes de voltar para Osaka." }
+            ]
+        },
+        {
+            id: 19, data: "19/05", diaSemana: "Terça", titulo: "O Retorno ao Luxo (Tóquio)",
+            hotel: "Janu Tokyo (Azabudai Hills)",
+            itens: [
+                { hora: "11:00", local: "Shinkansen", acao: "Osaka -> Tokyo. Viagem final de trem-bala." },
+                { hora: "15:00", local: "Check-in Janu Tokyo", acao: "Abertura do hotel mais aguardado de 2024/25. Vista para a Tokyo Tower." },
+                { hora: "19:00", local: "Azabudai Hills", acao: "Explorar o novo complexo e jantar sofisticado." }
+            ]
+        },
+        {
+            id: 21, data: "21/05", diaSemana: "Quinta", titulo: "Despedida em Grande Estilo",
+            hotel: "Janu Tokyo",
+            itens: [
+                { hora: "11:00", local: "Omotesando", acao: "Compras de luxo e eletrônicos Tax-Free (Levar passaporte!)." },
+                { hora: "19:30", local: "Balcony by 6th", acao: "Jantar de celebração: <span class='highlight'>Lendário Tiramisu</span> e Cheesecake Basca." },
+                { hora: "22:00", local: "Janu Bar", acao: "Drink de encerramento com vista panorâmica." }
+            ]
+        },
+        {
+            id: 22, data: "22/05", diaSemana: "Sexta", titulo: "Grand Finale",
+            hotel: "Check-out",
+            itens: [
+                { hora: "09:30", local: "teamLab Borderless", acao: "Visita ao novo museu em Azabudai Hills." },
+                { hora: "12:00", local: "Check-out", acao: "Último almoço e partida para Narita (NRT)." }
+            ]
+        }
+    ];
+
+    function renderNav() {
+        const nav = document.getElementById('navbar');
+        roteiroCompleto.forEach((dia, index) => {
+            const div = document.createElement('div');
+            div.className = `nav-item ${index === 0 ? 'active' : ''}`;
+            div.innerText = `${dia.data}`;
+            div.onclick = () => showDay(dia.id, div);
+            nav.appendChild(div);
+        });
+    }
+
+    function renderContent() {
+        const main = document.getElementById('main-content');
+        roteiroCompleto.forEach((dia, index) => {
+            const section = document.createElement('div');
+            section.id = `day-${dia.id}`;
+            section.className = `day-content ${index === 0 ? 'active' : ''}`;
+            
+            let itensHtml = dia.itens.map(item => `
+                <div class="card">
+                    <div><span class="time">${item.hora}</span> <span class="highlight">${item.local}</span></div>
+                    <div style="margin-top:8px;">${item.acao}</div>
+                </div>
+            `).join('');
+
+            section.innerHTML = `
+                <div class="hotel-box">🏨 <strong>Acomodação:</strong> ${dia.hotel}</div>
+                <h2 class="section-title">📅 ${dia.data} (${dia.diaSemana}) - ${dia.titulo}</h2>
+                ${itensHtml}
+                <div class="tip-box">✨ <strong>Dica do Concierge:</strong> Use o Google Maps para trajetos em tempo real e não esqueça de carregar seu Suica/Pasmo no celular!</div>
+            `;
+            main.appendChild(section);
+        });
+    }
+
+    function showDay(id, element) {
+        document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(`day-${id}`).classList.add('active');
+        element.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderNav();
+    renderContent();
+</script>
+
+</body>
+</html>
